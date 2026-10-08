@@ -32,8 +32,8 @@ window = display.set_mode((700, 500))
 display.set_caption("Ping Pong")
 window.fill(bg_color)
 
-R_Player = Player("racket.png", 5, 140, 210, 15, 90)
-L_Player = Player("racket.png", 5, 545, 210, 15, 90)
+R_Player = Player("racket.png", 5, 100, 210, 15, 90)
+L_Player = Player("racket.png", 5, 585, 210, 15, 90)
 
 clock = time.Clock()
 FPS = 60
