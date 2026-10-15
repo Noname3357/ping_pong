@@ -18,13 +18,13 @@ class Player(GameSprite):
         key_pressed = key.get_pressed()
         if key_pressed[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if key_pressed[K_DOWN] and self.rect.y < 405:
+        if key_pressed[K_DOWN] and self.rect.y < 395:
             self.rect.y += self.speed
     def update_l(self):
         key_pressed = key.get_pressed()
         if key_pressed[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if key_pressed[K_s] and self.rect.y < 405:
+        if key_pressed[K_s] and self.rect.y < 395:
             self.rect.y += self.speed
 
 bg_color = (150, 200, 255)
@@ -32,9 +32,12 @@ window = display.set_mode((700, 500))
 display.set_caption("Ping Pong")
 window.fill(bg_color)
 
-R_Player = Player("racket.png", 5, 100, 210, 15, 90)
-L_Player = Player("racket.png", 5, 585, 210, 15, 90)
+L_Player = Player("racket.png", 4, 70, 200, 20, 100)
+R_Player = Player("racket.png", 4, 610, 200, 20, 100)
+Ball = GameSprite("tenis_ball.png", 5, 335, 5, 30, 30)
 
+ball_xSpeed = 5
+ball_ySpeed = 5
 clock = time.Clock()
 FPS = 60
 game = True
@@ -46,6 +49,14 @@ while game:
         R_Player.update_r()
         L_Player.reset()
         L_Player.update_l()
+        Ball.reset()
+
+        Ball.rect.y += ball_ySpeed
+        Ball.rect.x += ball_xSpeed
+        if Ball.rect.y <= 5 or Ball.rect.y >= 465:
+            ball_ySpeed *= -1
+        if sprite.collide_rect(Ball, L_Player) or sprite.collide_rect(Ball, R_Player):
+            ball_xSpeed *= -1
 
     for e in event.get():
         if e.type == QUIT:
