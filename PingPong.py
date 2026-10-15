@@ -36,6 +36,11 @@ L_Player = Player("racket.png", 4, 70, 200, 20, 100)
 R_Player = Player("racket.png", 4, 610, 200, 20, 100)
 Ball = GameSprite("tenis_ball.png", 5, 335, 5, 30, 30)
 
+font.init()
+font = font.SysFont(None, 60)
+R_win = font.render("Player 2 is WINNER!", True, "darkblue")
+L_win = font.render("Player 1 is WINNER!", True, "darkblue")
+
 ball_xSpeed = 5
 ball_ySpeed = 5
 clock = time.Clock()
@@ -57,6 +62,13 @@ while game:
             ball_ySpeed *= -1
         if sprite.collide_rect(Ball, L_Player) or sprite.collide_rect(Ball, R_Player):
             ball_xSpeed *= -1
+        
+        if Ball.rect.x <= 0:
+            finish = True
+            window.blit(R_win,(150, 200))
+        if Ball.rect.x >= 670:
+            finish = True
+            window.blit(L_win,(150, 200))
 
     for e in event.get():
         if e.type == QUIT:
